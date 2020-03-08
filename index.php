@@ -19,7 +19,7 @@
             <div class="container px-5 py-5">
                 <h2 class="display-4 text-white pb-3">Firstly, please choose the voice that you prefer:</h2>
                 <form id="form" action="chatbot.php" method="get">
-                    <select class="custom-select custom-select-lg mb-3">
+                    <select name="voice" class="custom-select custom-select-lg mb-3">
                         <option value="banmai">Ban Mai (Northern Female)</option>
                         <option value="leminh">Le Minh (Northern Male)</option>
                         <option value="myan">My An (Central Female)</option>

@@ -14,7 +14,7 @@ curl_setopt_array($curl, array(
     CURLOPT_HTTPHEADER => array(
         'api-key: jHjjZ9DXH16UJ4rxXGIn9qvNfdVH66rR',
         'speed: ',
-        'voice: banmai'
+        'voice: ' . $_POST['voice']
     ),
 ));
 
