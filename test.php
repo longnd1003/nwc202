@@ -1,36 +1,19 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <title>Text to Speech</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script>
-		function submit_form() {
-			var data1=$("#uname").val();
-			var data2=$("#pwd").val();
-			var dataTosend='user='+data1+'&pwd='+data2;
-			$.ajax({
-				url: 'add-user.php',
-				type: 'POST',
-				data:dataTosend,
-				async: true,
-				success: function (data) {
-					$("#gen").html(data)
-				},
-			});
-		}
-		</script>
-</head>
-
-<body>
-    <form method="post">
-		<input type="text" placeholder="username" id="uname" />
-		<input type="password" placeholder="passowrd" id="pwd" />
-		<button type="button" onclick="submit_form();">Submit</button>
-	</form>
-	<div id='gen'></div>
-</body>
-
-</html>
+<?php 
+  
+// Initialize a file URL to the variable 
+$url = 'blob:http://localhost/8d3b8cdf-37e2-4753-a6e2-2f5ca256a63b'; 
+  
+// Use basename() function to return the base name of file  
+$file_name = basename($url); 
+   
+// Use file_get_contents() function to get the file 
+// from url and use file_put_contents() function to 
+// save the file by using base name 
+if(file_put_contents( $file_name,file_get_contents($url))) { 
+    echo "File downloaded successfully"; 
+} 
+else { 
+    echo "File downloading failed."; 
+} 
+  
+?>

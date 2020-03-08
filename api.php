@@ -7,8 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script>
-		function submit_form(e) {
-			$("#send").attr("disabled", true);
+		function tts() {
 			var text = 'input=' + $("#input-text").val();
 			$.ajax({
 				url: 'tts.php',
@@ -19,7 +18,6 @@
 					$("#tts-result").html(data)
 				},
 			});
-			$('#send').attr("disabled", false);
 		}
 		
 	</script>
@@ -36,7 +34,7 @@
         <form name="form-tts" id="form-tts" method="POST" enctype="multipart/form-data">
             <textarea id="input-text" name="input-text" maxlength="5000" placeholder="Input text (max 5000 characters)" 
                 rows="5"></textarea>
-            <button id="send" type="button" onclick="submit_form();">Send</button>
+            <button id="send" type="button" onclick="tts();">Send</button>
         </form>
 		<div id="tts-result"></div>
     </div>
