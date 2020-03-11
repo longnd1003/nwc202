@@ -32,7 +32,6 @@ function startRecording() {
     	We're using the standard promise based getUserMedia() 
     	https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
 	*/
-	debugger;
 	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
 		__log("getUserMedia() success, stream created, initializing WebAudioRecorder...");
 
@@ -81,31 +80,24 @@ function startRecording() {
 	      ogg: {quality: 0.5},
 	      mp3: {bitRate: 160}
 	    });
+		
+		$("#visualizer").append("<object data=\"visualizer.html\" type=\"text/html\" width=\"100%\"></object>");
 
 		//start the recording process
 		recorder.startRecording();
 
 		 __log("Recording started");
-		$("#visualizer").append("<object data=\"visualizer.html\" type=\"text/html\" width=\"100%\"></object>");
 	}).catch(function(err) {
 	  	//enable the record button if getUSerMedia() fails
     	alert("Failed to access microphone");
 	});
-
-	//disable the record button
-    recordButton.disabled = true;
-    stopButton.disabled = false;
 }
 
 function stopRecording() {
 	console.log("stopRecording() called");
-	
+	$("#visualizer").empty();
 	//stop microphone access
 	gumStream.getAudioTracks()[0].stop();
-
-	//disable the stop button
-	stopButton.disabled = true;
-	recordButton.disabled = false;
 	
 	//tell the recorder to finish the recording (stop recording + encode the recorded audio)
 	recorder.finishRecording();
@@ -127,8 +119,7 @@ function createDownloadLink(blob,encoding) {
 		processData: false,
 		cache: false,
 		success: function(data){
-			console.log(data);
-			//document.getElementById("input-msg").value = data;
+			document.getElementById("input-msg").value = data;
 		}
     });
 }
