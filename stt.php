@@ -1,10 +1,9 @@
 <?php
 
-include('upload.php');
-if ($_FILES['input-audio']['error'] > 0) {
-    echo 'Cannot upload file.';
-} else {
-
+	$input = $_FILES['audio']['tmp_name'];
+	$outputFile = "./audio/".date("dmYhis").'.mp3';
+	move_uploaded_file($input, $outputFile);
+	
     $logfile = fopen("./log/log_stt.txt", "a") or die("Unable to write log.");
     
     $starttime = microtime(true);
@@ -13,7 +12,7 @@ if ($_FILES['input-audio']['error'] > 0) {
     
     $curl = curl_init();
     
-    $fileName = './upload/' . $_FILES['input-audio']['name'];
+    $fileName = $outputFile;
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $finfo = finfo_file($finfo, $fileName);
     $cFile = curl_file_create($fileName, $finfo, basename($fileName));
@@ -24,7 +23,7 @@ if ($_FILES['input-audio']['error'] > 0) {
       CURLOPT_CUSTOMREQUEST => "POST",
       CURLOPT_POSTFIELDS => $data,
       CURLOPT_HTTPHEADER => array(
-        "api-key: QGBGnzbiREPW1M1Kk3K1I56JZOUHh59z"
+        "api-key: gOlLVlO9XINUzFUJTQdqAochL70LURR3"
       ),
     ));
     
@@ -60,8 +59,5 @@ if ($_FILES['input-audio']['error'] > 0) {
     
     fclose($logfile);
 	
-	unlink($fileName);
-
-}
 
 ?>

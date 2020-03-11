@@ -23,19 +23,16 @@
 							<input id="input-msg" type="text" placeholder="Type a message" class="form-control rounded-0 border-0 py-4 px-4 bg-light" required>
 							<div class="input-group-append">
 								<button type="submit" class="btn btn-light"><i class="fa fa-paper-plane text-primary"></i></button>
-								<!--<button id="recordButton" type="button" class="btn btn-light"><i class="fas fa-microphone-alt text-primary"></i></button>-->
-								<!--<button id="stopButton" type="button" class="btn btn-light"><i class="far fa-stop-circle"></i></button>
 								<!-- Button trigger modal -->
 								<button id="recordButton" type="button" class="btn btn-light" data-toggle="modal" data-target="#staticBackdrop">
 								  <i class="fas fa-microphone-alt text-primary"></i>
-								</button>
-								<!-- Modal -->
+								<!-- Modal  -->
 								<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 								  <div class="modal-dialog text-center modal-xl" role="document">
 									<div class="modal-content justify-content-center">
 									  <div class="modal-body">
-										<div class="py-5">Recording your pretty voice ^^ !</div>
-										<button id="stopButton" type="button" class="btn btn-lg btn-danger" data-dismiss="modal"><i class="far fa-stop-circle"></i></button>
+										<div id="visualizer" class="pb-5"></div>
+										<button id="stopButton" type="button" class="btn btn-lg btn-danger mb-4" data-dismiss="modal"><i class="far fa-stop-circle"></i></button>
 									  </div>
 									</div>
 								  </div>
@@ -47,8 +44,8 @@
 			</div>
 		</div>
 		<div id="tts-audio"></div>
-		<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
-		<script src="js/voiceRec.js"></script>
+		<script src="js/app.js"></script>
 		<script src="js/messenger.js"></script>
+		<script src="js/WebAudioRecorder.min.js"></script>
 	</body>
 </html>
