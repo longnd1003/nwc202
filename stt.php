@@ -11,21 +11,17 @@
     ob_start(); // begin collecting output
     
     $curl = curl_init();
-    
-    $fileName = $outputFile;
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $finfo = finfo_file($finfo, $fileName);
-    $cFile = curl_file_create($fileName, $finfo, basename($fileName));
-    $data = array("name" => "name", "filename" => $cFile);
-    
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => "https://api.fpt.ai/hmi/asr/general",
-      CURLOPT_CUSTOMREQUEST => "POST",
-      CURLOPT_POSTFIELDS => $data,
-      CURLOPT_HTTPHEADER => array(
-        "api-key: gOlLVlO9XINUzFUJTQdqAochL70LURR3"
-      ),
-    ));
+
+	$filePath = $outputFile;
+
+	curl_setopt_array($curl, array(
+	  CURLOPT_URL => "https://api.fpt.ai/hmi/asr/general",
+	  CURLOPT_CUSTOMREQUEST => "POST",
+	  CURLOPT_POSTFIELDS => array("filename" => file_get_contents($filePath)),
+	  CURLOPT_HTTPHEADER => array(
+		"api-key: gOlLVlO9XINUzFUJTQdqAochL70LURR3"
+	  ),
+	));
     
     $response = curl_exec($curl);
     $err = curl_error($curl);
@@ -59,5 +55,4 @@
     
     fclose($logfile);
 	
-
 ?>
