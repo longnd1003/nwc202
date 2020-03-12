@@ -1,7 +1,10 @@
+var i = 0;
+
 $(document).ready(function () {
     var welcomeMsg = "Xin chào!";
     botCreateMsg(welcomeMsg);
 	botCreateAudio(welcomeMsg);
+	$("#btn-loader").hide();
 });
 
 function getVoice() {
@@ -19,8 +22,12 @@ function sendMsg() {
     var inputMsg = $("#input-msg").val();
 	var today = new Date();
 	var time = today.getHours() + ":" + (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
-    $("#msg-zone").append("<div class=\"media w-50 ml-auto mb-3\"><div class=\"media-body\"><div class=\"bg-primary rounded py-3 px-3 mb-2\"><p class=\"text-small mb-0 text-white\">" + inputMsg + "</p></div><p class=\"small text-dark\">Sent at " + time + "</p></div></div>");
-    document.getElementById("input-msg").value = "";
+    $("#msg-zone").append("<div id=\"" + i + "\" class=\"media w-50 ml-auto mb-3\"><div class=\"media-body\"><div class=\"bg-primary rounded py-3 px-3 mb-2\"><p class=\"text-small mb-0 text-white\">" + inputMsg + "</p></div><p class=\"small text-dark\">Sent at " + time + "</p></div></div>");
+	var getMsg = document.getElementById(i);
+	var topPos = getMsg.offsetTop;
+	document.getElementById('msg-zone').scrollTop = topPos;
+	document.getElementById("input-msg").value = "";
+	i++;
 }
 
 function botCreateAudio(inputMsg) {

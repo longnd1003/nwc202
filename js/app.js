@@ -13,6 +13,7 @@ var audioContext; //new audio context to help us record
 
 var recordButton = document.getElementById("recordButton");
 var stopButton = document.getElementById("stopButton");
+var inputField = document.getElementById("input-msg");
 
 //add events to those 2 buttons
 recordButton.addEventListener("click", startRecording);
@@ -34,7 +35,8 @@ function startRecording() {
 	*/
 	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
 		__log("getUserMedia() success, stream created, initializing WebAudioRecorder...");
-
+		$("#recordButton").hide();
+		$("#btn-loader").show();
 		/*
 			create an audio context after getUserMedia is called
 			sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
@@ -82,7 +84,6 @@ function startRecording() {
 	    });
 		
 		$("#visualizer").append("<object data=\"visualizer.html\" type=\"text/html\" width=\"100%\"></object>");
-
 		//start the recording process
 		recorder.startRecording();
 
@@ -90,19 +91,24 @@ function startRecording() {
 	}).catch(function(err) {
 	  	//enable the record button if getUSerMedia() fails
     	alert("Failed to access microphone");
+		$("#recordButton").show();
+		$("#btn-loader").hide();
 	});
 }
 
 function stopRecording() {
 	console.log("stopRecording() called");
 	$("#visualizer").empty();
+	inputField.value = "";
+	inputField.placeholder = "Please wait while we are generating your message...";
+	inputField.disabled = true;
 	//stop microphone access
 	gumStream.getAudioTracks()[0].stop();
 	
 	//tell the recorder to finish the recording (stop recording + encode the recorded audio)
 	recorder.finishRecording();
-
 	__log('Recording stopped');
+	
 }
 
 function createDownloadLink(blob,encoding) {
@@ -119,7 +125,18 @@ function createDownloadLink(blob,encoding) {
 		processData: false,
 		cache: false,
 		success: function(data){
-			document.getElementById("input-msg").value = data;
+			inputField.value = data;
+			inputField.disabled = false;
+			inputField.placeholder = "Type a message";
+			$("#recordButton").show();
+			$("#btn-loader").hide();
+		},
+		error: function(xhr, status, error) {
+			alert("Sorry, our service is not available right now. Please try later.");
+			inputField.disabled = false;
+			inputField.placeholder = "Type a message";
+			$("#recordButton").show();
+			$("#btn-loader").hide();
 		}
     });
 }
