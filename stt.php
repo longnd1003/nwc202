@@ -4,10 +4,10 @@
 	$outputFile = "./audio/".date("dmYhis").'.mp3';
 	move_uploaded_file($input, $outputFile);
 	
-    $log_folder = $_SERVER['DOCUMENT_ROOT'] . "/testapi/logs/";
-	$file_path = $_SERVER['DOCUMENT_ROOT'] . "/testapi/logs/stt.csv";
+    $log_folder = $_SERVER['DOCUMENT_ROOT'] . "/logs/";
+	$file_path = $_SERVER['DOCUMENT_ROOT'] . "/logs/stt.csv";
 	if (!file_exists($log_folder)) {
-		mkdir($_SERVER['DOCUMENT_ROOT']."/testapi/logs/", 0777, true);
+		mkdir($_SERVER['DOCUMENT_ROOT']."/logs/", 0777, true);
 	}
 	$logfile = fopen($file_path, "a") or die("Unable to write log.");
 	
