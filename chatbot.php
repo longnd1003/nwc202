@@ -22,6 +22,7 @@
 								<!-- Button trigger modal -->
 								<button id="recordButton" type="button" class="btn btn-light" data-toggle="modal" data-target="#staticBackdrop">
 								  <i class="fas fa-microphone-alt text-primary"></i></button>
+								<button id="btn-loader" type="button" class="btn btn-light"><div class="loader"></div></button>
 								<!-- Modal  -->
 								<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 								  <div class="modal-dialog text-center modal-xl" role="document">

@@ -4,9 +4,15 @@
 	$outputFile = "./audio/".date("dmYhis").'.mp3';
 	move_uploaded_file($input, $outputFile);
 	
-    $logfile = fopen("./log/log_stt.txt", "a") or die("Unable to write log.");
-    
-    $starttime = microtime(true);
+    $log_folder = $_SERVER['DOCUMENT_ROOT'] . "/testapi/logs/";
+	$file_path = $_SERVER['DOCUMENT_ROOT'] . "/testapi/logs/stt.csv";
+	if (!file_exists($log_folder)) {
+		mkdir($_SERVER['DOCUMENT_ROOT']."/testapi/logs/", 0777, true);
+	}
+	$logfile = fopen($file_path, "a") or die("Unable to write log.");
+	
+	$s_date = date("d-m-Y H:i:s");
+	$s_time = microtime(true);
     
     ob_start(); // begin collecting output
     
@@ -48,10 +54,13 @@
 		echo $final;
     }
     	
-    $diff = microtime(true) - $starttime;
-      
-    fwrite($logfile, $diff);
-    fwrite($logfile, "\n");
+	unlink($outputFile);
+	
+    $e_date = date("d-m-Y H:i:s");
+	$diff = microtime(true) - $s_time;
+	$log = array ("Start: " . $s_date, "End: " . $e_date, "ExecTime: " . $diff . " second(s)");
+
+	fputcsv($logfile, $log);
     
     fclose($logfile);
 	

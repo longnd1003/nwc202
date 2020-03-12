@@ -1,7 +1,14 @@
 <?php
 
-$logfile = fopen("./log/log_tts.txt", "a") or die("Unable to write log.");
-$starttime = microtime(true);
+$log_folder = $_SERVER['DOCUMENT_ROOT'] . "/testapi/logs/";
+$file_path = $_SERVER['DOCUMENT_ROOT'] . "/testapi/logs/tts.csv";
+if (!file_exists($log_folder)) {
+	mkdir($_SERVER['DOCUMENT_ROOT']."/testapi/logs/", 0777, true);
+}
+$logfile = fopen($file_path, "a") or die("Unable to write log.");
+
+$s_date = date("d-m-Y H:i:s");
+$s_time = microtime(true);
 
 ob_start(); // begin collecting output
 
@@ -45,10 +52,11 @@ if (preg_match($pattern, $result, $matches)) {
 		  </audio>';
 }
 
-$diff = microtime(true) - $starttime;
+$e_date = date("d-m-Y H:i:s");
+$diff = microtime(true) - $s_time;
+$log = array ("Start: " . $s_date, "End: " . $e_date, "ExecTime: " . $diff . " second(s)");
 
-fwrite($logfile, $diff);
-fwrite($logfile, "\n");
+fputcsv($logfile, $log);
 
 fclose($logfile);
 ?> 
