@@ -80,6 +80,10 @@ button {
   border-radius: 0.5rem;
 }
 
+.custom-select {
+  border-radius: 0rem !important;
+}
+
 input::placeholder {
   font-size: 1rem;
   color: #999;

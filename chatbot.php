@@ -4,7 +4,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="style.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-		<title>NWC Asking Service</title>
+		<title>Welcome to HALTBOT</title>
 	</head>
 
 	<body>
@@ -18,7 +18,7 @@
 						<div class="input-group">
 							<input id="input-msg" type="text" placeholder="Type a message" class="form-control rounded-0 border-0 py-4 px-4 bg-light" required>
 							<div class="input-group-append">
-								<button type="submit" class="btn btn-light"><i class="fa fa-paper-plane text-primary"></i></button>
+								<button id="sendButton" type="submit" class="btn btn-light"><i class="fa fa-paper-plane text-primary"></i></button>
 								<!-- Button trigger modal -->
 								<button id="recordButton" type="button" class="btn btn-light" data-toggle="modal" data-target="#staticBackdrop">
 								  <i class="fas fa-microphone-alt text-primary"></i></button>
@@ -40,7 +40,6 @@
 				</div>
 			</div>
 		</div>
-		<div id="tts-audio"></div>
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"</script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>

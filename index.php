@@ -4,18 +4,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <title>NWC Asking Service</title>
+    <title>Welcome to HALTBOT</title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://kit.fontawesome.com/9b81e7de6f.js" crossorigin="anonymous"></script>
-    <script src="js/messenger.js"></script>
 </head>
 
 <body>
     <div class="container py-5 px-4">
         <header class="text-center my-5">
-            <h1 class="display-3 text-white">NWC Asking Service</h1>
+            <h1 class="display-3 text-white">HALTBOT</h1>
+			<h1 class="display-3 text-white">HALT Homestay Service</h1>
         </header>
-        <div class="rounded-lg overflow-hidden shadow text-center">
+        <div class="overflow-hidden shadow text-center">
             <div class="container px-5 py-5">
                 <h2 class="display-4 text-white pb-3">Firstly, please choose the voice that you prefer:</h2>
                 <form id="form" action="chatbot.php" method="get">

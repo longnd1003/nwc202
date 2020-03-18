@@ -47,9 +47,7 @@ if (preg_match($pattern, $result, $matches)) {
             break;
         }
     }
-    echo '<audio controls autoplay>
-			<source src="' . $audiolink . '" type="audio/mpeg">
-		  </audio>';
+    echo $audiolink;
 }
 
 $e_date = date("d-m-Y H:i:s");
