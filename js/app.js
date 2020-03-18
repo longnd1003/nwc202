@@ -77,7 +77,7 @@ function startRecording() {
 		}
 
 		recorder.setOptions({
-		  timeLimit:120,
+		  timeLimit:30,
 		  encodeAfterRecord:encodeAfterRecord,
 	      ogg: {quality: 0.5},
 	      mp3: {bitRate: 160}
@@ -91,8 +91,9 @@ function startRecording() {
 	}).catch(function(err) {
 	  	//enable the record button if getUSerMedia() fails
     	alert("Failed to access microphone");
-		$("#recordButton").show();
-		$("#btn-loader").hide();
+		location.reload();
+		//$("#recordButton").show();
+		//$("#btn-loader").hide();
 	});
 }
 
@@ -126,6 +127,7 @@ function createDownloadLink(blob,encoding) {
 		cache: false,
 		success: function(data){
 			inputField.value = data;
+			sendMsg();
 			inputField.disabled = false;
 			inputField.placeholder = "Type a message";
 			$("#recordButton").show();
