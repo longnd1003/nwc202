@@ -1,11 +1,17 @@
 <?php
 
+	function format_period($seconds_input)
+	{
+	  $hours = (int)($minutes = (int)($seconds = (int)($milliseconds = (int)($seconds_input * 1000)) / 1000) / 60) / 60;
+	  return (($hours < 10) ? "0" : "").$hours.':'.(($minutes < 10) ? "0" : "").($minutes % 60).':'.(($seconds < 10) ? "0" : "").($seconds % 60).(($milliseconds === 0)?'':'.'.(($milliseconds < 10) ? "0" : "").rtrim($milliseconds % 1000, '0'));
+	}
+
 	$input = $_FILES['audio']['tmp_name'];
 	$outputFile = "./audio/".date("dmYhis").'.mp3';
 	move_uploaded_file($input, $outputFile);
 	
     $log_folder = $_SERVER['DOCUMENT_ROOT'] . "/logs/";
-	$file_path = $_SERVER['DOCUMENT_ROOT'] . "/logs/stt.csv";
+	$file_path = $_SERVER['DOCUMENT_ROOT'] . "/logs/messagesLog.csv";
 	if (!file_exists($log_folder)) {
 		mkdir($_SERVER['DOCUMENT_ROOT']."/logs/", 0777, true);
 	}
@@ -25,7 +31,7 @@
 	  CURLOPT_CUSTOMREQUEST => "POST",
 	  CURLOPT_POSTFIELDS => array("filename" => file_get_contents($filePath)),
 	  CURLOPT_HTTPHEADER => array(
-		"api-key: gOlLVlO9XINUzFUJTQdqAochL70LURR3"
+		"api-key: 2cfCUOeKkprqCboDLJI4eHhPCAdPhENX"
 	  ),
 	));
     
@@ -56,10 +62,8 @@
     	
 	unlink($outputFile);
 	
-    $e_date = date("d-m-Y H:i:s");
 	$diff = microtime(true) - $s_time;
-	$log = array ("Start: " . $s_date, "End: " . $e_date, "ExecTime: " . $diff . " second(s)");
-
+	$log = array ("Message: ".$final, "Sent at: ".$s_date, "Processing time: ".format_period($diff));
 	fputcsv($logfile, $log);
     
     fclose($logfile);

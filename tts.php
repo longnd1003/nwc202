@@ -1,60 +1,65 @@
 <?php
 
-$log_folder = $_SERVER['DOCUMENT_ROOT'] . "/logs/";
-$file_path = $_SERVER['DOCUMENT_ROOT'] . "/logs/tts.csv";
-if (!file_exists($log_folder)) {
-	mkdir($_SERVER['DOCUMENT_ROOT']."/logs/", 0777, true);
-}
-$logfile = fopen($file_path, "a") or die("Unable to write log.");
+	function format_period($seconds_input)
+	{
+	  $hours = (int)($minutes = (int)($seconds = (int)($milliseconds = (int)($seconds_input * 1000)) / 1000) / 60) / 60;
+	  return (($hours < 10) ? "0" : "").$hours.':'.(($minutes < 10) ? "0" : "").($minutes % 60).':'.(($seconds < 10) ? "0" : "").($seconds % 60).(($milliseconds === 0)?'':'.'.(($milliseconds < 10) ? "0" : "").rtrim($milliseconds % 1000, '0'));
+	}
 
-$s_date = date("d-m-Y H:i:s");
-$s_time = microtime(true);
+	$log_folder = $_SERVER['DOCUMENT_ROOT'] . "/logs/";
+	$file_path = $_SERVER['DOCUMENT_ROOT'] . "/logs/messagesLog.csv";
+	if (!file_exists($log_folder)) {
+		mkdir($_SERVER['DOCUMENT_ROOT']."/logs/", 0777, true);
+	}
+	$logfile = fopen($file_path, "a") or die("Unable to write log.");
 
-ob_start(); // begin collecting output
+	$s_date = date("d-m-Y H:i:s");
+	$s_time = microtime(true);
 
-$curl = curl_init();
+	ob_start(); // begin collecting output
 
-curl_setopt_array($curl, array(
-    CURLOPT_URL => 'https://api.fpt.ai/hmi/tts/v5',
-    CURLOPT_CUSTOMREQUEST => 'POST',
-    CURLOPT_POSTFIELDS => $_POST['input'],
-    CURLOPT_HTTPHEADER => array(
-        'api-key: jHjjZ9DXH16UJ4rxXGIn9qvNfdVH66rR',
-        'speed: ',
-        'voice: ' . $_POST['voice']
-    ),
-));
+	$curl = curl_init();
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
+	curl_setopt_array($curl, array(
+		CURLOPT_URL => 'https://api.fpt.ai/hmi/tts/v5',
+		CURLOPT_CUSTOMREQUEST => 'POST',
+		CURLOPT_POSTFIELDS => $_POST['input'],
+		CURLOPT_HTTPHEADER => array(
+			'api-key: 2cfCUOeKkprqCboDLJI4eHhPCAdPhENX',
+			'speed: ',
+			'voice: ' . $_POST['voice']
+		),
+	));
 
-curl_close($curl);
+	$response = curl_exec($curl);
+	$err = curl_error($curl);
 
-if ($err) {
-    echo 'cURL Error #:' . $err;
-} else {
-    echo $response;
-}
+	curl_close($curl);
 
-$result = ob_get_clean();
+	if ($err) {
+		echo 'cURL Error #:' . $err;
+	} else {
+		echo $response;
+	}
 
-$pattern = '/[a-zA-Z]+:\/\/\S+.mp3/';
-if (preg_match($pattern, $result, $matches)) {
-    $audiolink = $matches[0];
-    while (true) {
-        $headers = @get_headers($audiolink);
-        if (strpos($headers[0], '404') === false) {
-            break;
-        }
-    }
-    echo $audiolink;
-}
+	$result = ob_get_clean();
 
-$e_date = date("d-m-Y H:i:s");
-$diff = microtime(true) - $s_time;
-$log = array ("Start: " . $s_date, "End: " . $e_date, "ExecTime: " . $diff . " second(s)");
+	$pattern = '/[a-zA-Z]+:\/\/\S+.mp3/';
+	if (preg_match($pattern, $result, $matches)) {
+		$audiolink = $matches[0];
+		while (true) {
+			$headers = @get_headers($audiolink);
+			if (strpos($headers[0], '404') === false) {
+				break;
+			}
+		}
+		echo $audiolink;
+	}
 
-fputcsv($logfile, $log);
+	$diff = microtime(true) - $s_time;
+	$log = array ("Message: ".$_POST['input'], "Sent at: ".$s_date, "Processing time: ".format_period($diff));
 
-fclose($logfile);
+	fputcsv($logfile, $log);
+
+	fclose($logfile);
 ?> 
