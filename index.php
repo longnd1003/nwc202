@@ -12,7 +12,7 @@
 <body>
     <div class="container py-5 px-4">
         <header class="text-center my-5">
-            <h1 class="display-3 text-white">HALTBOT</h1>
+            <h1 class="display-3 text-white">HALTBOT GIT</h1>
 			<h1 class="display-3 text-white">HALT Homestay Service</h1>
         </header>
         <div class="overflow-hidden shadow text-center">
